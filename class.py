@@ -1,48 +1,52 @@
-class StudentGroup:
-    def __init__(self, group_id, students):
-        self.group_id = group_id
-        self.students = students
+from typing import TypeVar, List
+from abc import ABC, abstractmethod
 
-    def __str__(self):
-        return f"Group ID: {self.group_id}, Students: {len(self.students)}"
+T = TypeVar('T')
 
-    def __repr__(self):
-        return str(self)
+class Person:
+    def __init__(self, name: str, age: int):
+        self.name = name
+        self.age = age
 
+class PersonComparator:
+    @staticmethod
+    def compare(person1: Person, person2: Person) -> int:
+        return person1.age - person2.age
 
-class StudentStream:
-    def __init__(self, stream_id, groups):
-        self.stream_id = stream_id
-        self.groups = groups
+class TeacherService(ABC):
+    @abstractmethod
+    def get_all_teachers(self) -> List[T]:
+        pass
 
-    def __iter__(self):
-        return iter(self.groups)
+class Teacher(Person):
+    def __init__(self, name: str, age: int):
+        super().__init__(name, age)
 
-    def __str__(self):
-        return f"Stream ID: {self.stream_id}, Groups: {len(self.groups)}"
+class TeacherServiceImpl(TeacherService):
+    def __init__(self):
+        self.teachers = []
 
-    def __repr__(self):
-        return str(self)
+    def get_all_teachers(self) -> List[Teacher]:
+        return self.teachers
 
+class AccountController:
+    @staticmethod
+    def averageAge(items: List[T]) -> float:
+        total_age = sum(item.age for item in items)
+        return total_age / len(items)
 
-# Пример использования классов
+# Пример использования
 
-# Создание групп студентов
-group1 = StudentGroup("Group1", ["Student1", "Student2", "Student3"])
-group2 = StudentGroup("Group2", ["Student4", "Student5"])
-group3 = StudentGroup("Group3", ["Student6", "Student7", "Student8"])
+teachers = TeacherServiceImpl()
+teachers.teachers = [
+    Teacher('John', 35),
+    Teacher('Alice', 42),
+    Teacher('Bob', 28)
+]
 
-# Создание потока студентов с группами
-stream = StudentStream("Stream1", [group1, group2, group3])
+sorted_teachers = sorted(teachers.get_all_teachers(), key=lambda x: x.age)
+for teacher in sorted_teachers:
+    print(teacher.name, teacher.age)
 
-# Итерация по группам в потоке и вывод на консоль
-for group in stream:
-    print(group)
-
-# Сортировка групп в потоке по количеству студентов
-sorted_groups = sorted(stream, key=lambda x: len(x.students))
-
-# Вывод отсортированных групп на консоль
-for group in sorted_groups:
-    print(group)
-
+average_age = AccountController.averageAge(teachers.get_all_teachers())
+print("Average Age:", average_age)
