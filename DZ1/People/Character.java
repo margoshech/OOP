@@ -1,5 +1,9 @@
 package People;
 
+import java.util.ArrayList;
+
+import Value.Coordinates;
+
 abstract public class Character {
     public int id;
     public String name;
@@ -8,6 +12,8 @@ abstract public class Character {
     public int damage;
     public int level = 1;
     public double money;
+    
+    public Coordinates coordinates;
 
     public void attack()
     {
