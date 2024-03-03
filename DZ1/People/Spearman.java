@@ -1,5 +1,6 @@
 package People;
 
+import Action.GoToEnemy;
 import Value.Coordinates;
 
 // копейщик
@@ -11,6 +12,16 @@ public class Spearman extends Character {
     {
         this.name = name;
         this.coordinates = coordinates;
+    }
+
+        @Override
+    public void step()
+    {
+        if (isDead()) {
+            return;
+        }
+
+        GoToEnemy.goToClosestEnemy(this);
     }
 
     public String toString()

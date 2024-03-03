@@ -47,24 +47,4 @@ public class Sniper extends Character {
             System.out.println("Мёртв");
         }
     }
-
-    public Character getClosestEnemy()
-    {
-          Character closestEnemy = enemies.get(0);
-
-          for (int i = 0; i < enemies.size(); i++) {
-               if (enemies.get(i) == this) {
-                   continue;
-               }
-
-               Coordinates enemyCoordinates = enemies.get(i).coordinates;
-               double currentDistance = coordinates.getDistance(enemyCoordinates);
-               double closestDistance = coordinates.getDistance(closestEnemy.coordinates);
-
-               if (closestDistance > currentDistance) {
-                    closestEnemy = enemies.get(i);
-               }
-          }
-          return closestEnemy;
-   }
 }

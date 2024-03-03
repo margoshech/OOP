@@ -24,10 +24,12 @@ public class Main
             }
         });
 
-        for (int i = 0; i < all.size(); i++) {
-            Character currentCharacter = all.get(i);пш
-            System.out.println(currentCharacter);
-            currentCharacter.step();
+        for (int j = 0; j < 100; j++) {
+            for (int i = 0; i < all.size(); i++) {
+                Character currentCharacter = all.get(i);
+                System.out.println(currentCharacter);
+                currentCharacter.step();
+            }
         }
     }
 }
