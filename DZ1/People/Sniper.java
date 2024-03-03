@@ -6,7 +6,8 @@ import Value.Coordinates;
 
 //снайпер
 public class Sniper extends Character {
-    int bullets; //пули
+    int arrows = 100; // стрелы
+    int initiative = 3;
 
     public Sniper(String name, Coordinates coordinates)
     {
@@ -19,7 +20,35 @@ public class Sniper extends Character {
         return "Снайпер "+name+". Координаты: " + coordinates;
     }
 
-    public Character getClosetEnemy(ArrayList<Character> enemies)
+    @Override
+    public void attack(Character enemy)
+    {
+        if (arrows < 0) {
+            System.out.println("У " + name + " не хватает стрел");
+            return;
+        }
+
+        arrows -= 1;
+        enemy.hp -= damage;
+        System.out.println("Снайпер " + name + " атаковал " + enemy.name + " на " + damage + " урон");
+    }
+
+    @Override
+    public void step()
+    {
+        if (hp > 0) {
+            if (arrows > 0) {
+                Character enemy = getClosestEnemy();
+                attack(enemy);
+            } else {
+                System.out.println("Стрелы отсутствуют");
+            }
+        } else {
+            System.out.println("Мёртв");
+        }
+    }
+
+    public Character getClosestEnemy()
     {
           Character closestEnemy = enemies.get(0);
 

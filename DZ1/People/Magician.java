@@ -6,6 +6,7 @@ import Value.Coordinates;
 public class Magician extends Character
 {
     int mana = 100;
+    int initiative = 1;
 
     public Magician(String name, Coordinates coordinates)
     {

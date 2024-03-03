@@ -3,8 +3,9 @@ package People;
 import Value.Coordinates;
 
 // копейщик
-public class Spearman extends Character  {
+public class Spearman extends Character {
     int spearCount = 1; // количество копьев
+    int initiative = 2;
 
     public Spearman(String name, Coordinates coordinates)
     {

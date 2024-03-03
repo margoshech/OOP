@@ -1,32 +1,33 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import People.*;
 import People.Character;
+import Team.TeamCreator;
 import Value.Coordinates;
 
 public class Main
 {
     public static void main(String[] args)
     {
-        ArrayList<Character> list = new ArrayList();
-        list.add(new Magician("Vasya1", new Coordinates(1, 0)));
-        list.add(new Crossbowman("Vasya2", new Coordinates(4, 9)));
-        list.add(new Monk("Vasya3", new Coordinates(3, 0)));
-        list.add(new Peasant("Vasya4", new Coordinates(7, 9)));
-        list.add(new Robber("Vasya5", new Coordinates(2, 0)));
-        list.add(new Sniper("Vasya6", new Coordinates(7, 9)));
-        list.add(new Spearman("Vasya7", new Coordinates(2, 0)));
+        ArrayList<Character> team1 = new ArrayList<>();
+        ArrayList<Character> team2 = new ArrayList<>();
+        TeamCreator.fillTeams(team1, team2);
 
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i));
-        }
+        ArrayList<Character> all = new ArrayList<>();
+        all.addAll(team1);
+        all.addAll(team2);
 
-        // вычисление ближайшего противника для стрелка
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i) instanceof Sniper) {
-                Sniper sniper = ((Sniper) list.get(i));
-                System.out.println("Ближайший противник для снайпера " + sniper.name + ": " + sniper.getClosetEnemy(list));
+        all.sort(new Comparator<Character>() {
+            public int compare(Character o1, Character o2) {
+                return o1.initiative - o1.initiative;
             }
+        });
+
+        for (int i = 0; i < all.size(); i++) {
+            Character currentCharacter = all.get(i);пш
+            System.out.println(currentCharacter);
+            currentCharacter.step();
         }
     }
 }

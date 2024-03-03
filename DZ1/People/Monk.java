@@ -6,6 +6,7 @@ import Value.Coordinates;
 
 public class Monk extends Character{
     int books;
+    int initiative = 1;
 
     public Monk(String name, Coordinates coordinates)
     {

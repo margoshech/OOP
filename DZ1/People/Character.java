@@ -2,22 +2,30 @@ package People;
 
 import java.util.ArrayList;
 
+import Action.Step;
 import Value.Coordinates;
 
-abstract public class Character {
+abstract public class Character implements Step {
     public int id;
     public String name;
     public String lastname;
     public int hp = 100;
-    public int damage;
+    public int damage = 1;
     public int level = 1;
     public double money;
+    public int initiative;
+    public ArrayList<Character> enemies;
     
     public Coordinates coordinates;
 
-    public void attack()
+    public void setEnemies(ArrayList<Character> enemies)
     {
-        System.out.println("attack");
+        this.enemies = enemies;
+    }
+
+    public void attack(Character enemy)
+    {
+        enemy.hp -= damage;
     }
 
     public void step()
