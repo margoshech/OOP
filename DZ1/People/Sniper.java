@@ -1,13 +1,12 @@
 package People;
 
-import java.util.ArrayList;
-
 import Value.Coordinates;
 
 //снайпер
 public class Sniper extends Character {
     int arrows = 100; // стрелы
     int initiative = 3;
+    public String type = "Снайпер";
 
     public Sniper(String name, Coordinates coordinates)
     {
@@ -17,7 +16,7 @@ public class Sniper extends Character {
 
     public String toString()
     {
-        return "Снайпер "+name+". Координаты: " + coordinates;
+        return "Снайпер "+name+". Координаты: " + coordinates + ". HP: " + hp;
     }
 
     @Override

@@ -6,6 +6,7 @@ import Value.Coordinates;
 public class Peasant extends Character {
     int amountOfLand; // количество земли
     int initiative = 0;
+    public String type = "Крестьянин";
 
     public Peasant(String name, Coordinates coordinates)
     {
@@ -15,6 +16,6 @@ public class Peasant extends Character {
 
     public String toString()
     {
-        return "Крестьянин "+name+". Координаты: " + coordinates;
+        return "Крестьянин "+name+". Координаты: " + coordinates + ". HP: " + hp;
     }
 }

@@ -7,6 +7,7 @@ import Value.Coordinates;
 public class Monk extends Character{
     int books;
     int initiative = 1;
+    public String type = "Монах";
 
     public Monk(String name, Coordinates coordinates)
     {
@@ -16,6 +17,6 @@ public class Monk extends Character{
 
     public String toString()
     {
-        return "Монах "+name+". Координаты: " + coordinates;
+        return "Монах "+name+". Координаты: " + coordinates + ". HP: " + hp;
     }
 }

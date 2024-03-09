@@ -7,6 +7,7 @@ public class Magician extends Character
 {
     int mana = 100;
     int initiative = 1;
+    public String type = "Маг";
 
     public Magician(String name, Coordinates coordinates)
     {
@@ -16,6 +17,6 @@ public class Magician extends Character
 
     public String toString()
     {
-        return "Маг "+name+". Координаты: " + coordinates;
+        return "Маг "+name+". Координаты: " + coordinates + ". HP: " + hp;
     }
 }

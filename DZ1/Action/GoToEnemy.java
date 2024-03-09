@@ -13,7 +13,21 @@ public class GoToEnemy {
         if (Math.abs(coordinates.x - enemyCoordinates.x) <= 1 && Math.abs(coordinates.y - enemyCoordinates.y) <= 1) {
             currentCharacter.attack(enemy);
         } else {
-            if (Math.abs(coordinates.x - enemyCoordinates.x) < Math.abs(coordinates.y - enemyCoordinates.y)) {
+            int targetX = enemyCoordinates.x;
+            int targetY = enemyCoordinates.y;
+
+            if (coordinates.x < targetX) {
+                coordinates.x++;
+            } else if (coordinates.x > targetX) {
+                coordinates.x--;
+            }
+
+            if (coordinates.y < targetY) {
+                coordinates.y++;
+            } else if (coordinates.y > targetY) {
+                coordinates.y--;
+            }
+            /*if (Math.abs(coordinates.x - enemyCoordinates.x) < Math.abs(coordinates.y - enemyCoordinates.y)) {
                 int targetX = coordinates.x - enemyCoordinates.x < 0 ? coordinates.x + 1 : coordinates.x - 1;
                 Coordinates targetWay = new Coordinates(targetX, coordinates.y);
 
@@ -23,7 +37,7 @@ public class GoToEnemy {
                 Coordinates targetWay = new Coordinates(coordinates.x, targetY);
 
                 currentCharacter.go(targetWay);
-            }
+            }*/
         }
     }
 }

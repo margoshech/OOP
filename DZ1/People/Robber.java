@@ -7,6 +7,7 @@ import Value.Coordinates;
 public class Robber extends Character {
     int cunning; // хитрость
     int initiative = 2;
+    public String type = "Разбойник";
 
     public Robber(String name, Coordinates coordinates)
     {
@@ -26,6 +27,6 @@ public class Robber extends Character {
 
     public String toString()
     {
-        return "Разбойник "+name+". Координаты: " + coordinates;
+        return "Разбойник "+name+". Координаты: " + coordinates + ". HP: " + hp;
     }
 }

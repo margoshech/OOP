@@ -7,6 +7,7 @@ import Value.Coordinates;
 public class Spearman extends Character {
     int spearCount = 1; // количество копьев
     int initiative = 2;
+    public String type = "Копейщик";
 
     public Spearman(String name, Coordinates coordinates)
     {
@@ -14,18 +15,19 @@ public class Spearman extends Character {
         this.coordinates = coordinates;
     }
 
-        @Override
+    @Override
     public void step()
     {
         if (isDead()) {
             return;
         }
 
+
         GoToEnemy.goToClosestEnemy(this);
     }
 
     public String toString()
     {
-        return "Копейщик "+name+". Координаты: " + coordinates;
+        return "Копейщик "+name+". Координаты: " + coordinates + ". HP: " + hp;
     }
 }

@@ -1,34 +1,68 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Scanner;
 
-import People.*;
 import People.Character;
 import Team.TeamCreator;
-import Value.Coordinates;
 
 public class Main
 {
+    static ArrayList<Character> holyTeam = new ArrayList<>();
+    static ArrayList<Character> darkTeam = new ArrayList<>();
+    static ArrayList<Character> allTeam = new ArrayList<>();
+    
     public static void main(String[] args)
     {
-        ArrayList<Character> team1 = new ArrayList<>();
-        ArrayList<Character> team2 = new ArrayList<>();
-        TeamCreator.fillTeams(team1, team2);
+        TeamCreator.fillTeams(holyTeam, darkTeam);
+        allTeam.addAll(holyTeam);
+        allTeam.addAll(darkTeam);
 
-        ArrayList<Character> all = new ArrayList<>();
-        all.addAll(team1);
-        all.addAll(team2);
-
-        all.sort(new Comparator<Character>() {
+        allTeam.sort(new Comparator<Character>() {
             public int compare(Character o1, Character o2) {
                 return o1.initiative - o1.initiative;
             }
         });
 
-        for (int j = 0; j < 100; j++) {
-            for (int i = 0; i < all.size(); i++) {
-                Character currentCharacter = all.get(i);
-                System.out.println(currentCharacter);
-                currentCharacter.step();
+        Scanner input = new Scanner(System.in);
+        while (true) {
+            View.view();
+            input.nextLine();
+            boolean isHolyDead = false;
+            boolean isDarkDead = false;
+
+            for (Character character: allTeam) {
+                character.step();
+
+                Integer deadCount = 0;
+                for (Character holyCharacter: holyTeam) {
+                    if (holyCharacter.isDead()) {
+                        deadCount++;
+                    }
+                }
+                if (deadCount == holyTeam.size()) {
+                    isHolyDead = true;
+                    break;
+                }
+
+                deadCount = 0;
+                for (Character darkCharacter: darkTeam) {
+                    if (darkCharacter.isDead()) {
+                        deadCount++;
+                    }
+                }
+                if (deadCount == darkTeam.size()) {
+                    isDarkDead = true;
+                    break;
+                }
+            }
+
+            if (isHolyDead || isDarkDead) {
+                if (isHolyDead) {
+                    System.out.println("Команда holy победила");
+                } else {
+                    System.out.println("Команда dark победила");
+                }
+                break;
             }
         }
     }

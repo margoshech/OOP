@@ -15,6 +15,7 @@ abstract public class Character implements Step {
     public double money;
     public int initiative;
     public ArrayList<Character> enemies;
+    public String type;
     
     public Coordinates coordinates;
 
@@ -64,9 +65,25 @@ abstract public class Character implements Step {
         System.out.println("treatment"); //лечение
     }
 
+    public Coordinates getCoords()
+    {
+        return coordinates;
+    }
+
+    public String getInfo()
+    {
+        return type + " ("+ name +")";
+    }
+
     public Character getClosestEnemy()
     {
           Character closestEnemy = enemies.get(0);
+          for (Character enemy: enemies) {
+            if (enemy != this && !enemy.isDead()) {
+                closestEnemy = enemy;
+                break;
+            }
+          }
 
           for (int i = 0; i < enemies.size(); i++) {
                if (enemies.get(i) == this || enemies.get(i).isDead()) {
