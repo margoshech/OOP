@@ -14,14 +14,24 @@ abstract public class Character implements Step {
     public int level = 1;
     public double money;
     public int initiative;
-    public ArrayList<Character> enemies;
-    public String type;
+    public ArrayList<Character> enemies = new ArrayList<>();
+    public ArrayList<Character> friends = new ArrayList<>();
     
     public Coordinates coordinates;
 
     public void setEnemies(ArrayList<Character> enemies)
     {
         this.enemies = enemies;
+    }
+
+    public void setFriends(ArrayList<Character> friends)
+    {
+        this.friends = friends;
+    }
+
+    public void addFriend(Character friend)
+    {
+        this.friends.add(friend);
     }
 
     public boolean isDead()
@@ -56,23 +66,16 @@ abstract public class Character implements Step {
         System.out.println(name + " переместился на позицию x:" + coordinates.x + " y: " + coordinates.y + ". Ближайший для него враг: " + getClosestEnemy());
     }
 
-    public void treatment()
-    {
-        if (isDead()) {
-            return;
-        }
-
-        System.out.println("treatment"); //лечение
-    }
-
     public Coordinates getCoords()
     {
         return coordinates;
     }
 
+    public abstract String getType();
+
     public String getInfo()
     {
-        return type + " ("+ name +")";
+        return getType() + " ("+ name +")";
     }
 
     public Character getClosestEnemy()
@@ -100,4 +103,35 @@ abstract public class Character implements Step {
           }
           return closestEnemy;
    }
+
+   public Character getClosestFriedByType(String type)
+    {
+        Character closestFriend = null;
+        for (Character friend: friends) {
+            if (this != friend && !friend.isDead() && friend.getType() == type) {
+                closestFriend = friend;
+                break;
+            }
+        }
+
+        if (null == closestFriend) {
+            return null;
+        }
+
+        for (Character friend: friends) {
+            if (this == friend || friend.isDead() || friend.getType() != type) {
+                continue;
+            }
+
+            Coordinates friendCoordinates = friend.coordinates;
+            double currentDistance = coordinates.getDistance(friendCoordinates);
+            double closestDistance = coordinates.getDistance(closestFriend.coordinates);
+
+            if (closestDistance > currentDistance) {
+                closestFriend = friend;
+           }
+        }
+
+        return closestFriend;
+    }
 }

@@ -6,7 +6,6 @@ import Value.Coordinates;
 public class Sniper extends Character {
     int arrows = 100; // стрелы
     int initiative = 3;
-    public String type = "Снайпер";
 
     public Sniper(String name, Coordinates coordinates)
     {
@@ -14,9 +13,14 @@ public class Sniper extends Character {
         this.coordinates = coordinates;
     }
 
+    @Override
+    public String getType() {
+        return "Снайпер";
+    }
+
     public String toString()
     {
-        return "Снайпер "+name+". Координаты: " + coordinates + ". HP: " + hp;
+        return "Снайпер "+name+". Координаты: " + coordinates + ". HP: " + hp + " Стрел: " + arrows;
     }
 
     @Override

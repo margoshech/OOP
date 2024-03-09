@@ -15,6 +15,11 @@ public class Monk extends Character{
         this.coordinates = coordinates;
     }
 
+    @Override
+    public String getType() {
+        return "Монах";
+    }
+
     public String toString()
     {
         return "Монах "+name+". Координаты: " + coordinates + ". HP: " + hp;

@@ -1,13 +1,12 @@
 package People;
 
-import Action.GoToEnemy;
+import Action.GoTo;
 import Value.Coordinates;
 
 // разбойник
 public class Robber extends Character {
     int cunning; // хитрость
     int initiative = 2;
-    public String type = "Разбойник";
 
     public Robber(String name, Coordinates coordinates)
     {
@@ -22,11 +21,18 @@ public class Robber extends Character {
             return;
         }
 
-        GoToEnemy.goToClosestEnemy(this);
+        if (GoTo.goToClosestEnemy(this) == 1) {
+            attack(getClosestEnemy());
+        }
     }
 
     public String toString()
     {
         return "Разбойник "+name+". Координаты: " + coordinates + ". HP: " + hp;
+    }
+
+    @Override
+    public String getType() {
+        return "Разбойник";
     }
 }

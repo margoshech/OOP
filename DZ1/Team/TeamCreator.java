@@ -39,13 +39,28 @@ public class TeamCreator
         team2.add(new Sniper("Sniper2Team2", new Coordinates(10, 10)));
 
         setEnemies(team1, team2);
+        setFriends(team1, team1);
         setEnemies(team2, team1);
+        setFriends(team2, team2);
     }
 
     public static void setEnemies(ArrayList<Character> team, ArrayList<Character> enemies)
     {
         for (int i = 0; i < team.size(); i++) {
             team.get(i).setEnemies(enemies);
+        }
+    }
+
+    public static void setFriends(ArrayList<Character> team, ArrayList<Character> friends)
+    {
+        for (int i = 0; i < team.size(); i++) {
+            for (Character friend: friends) {
+                if (friend == team.get(i)) {
+                    continue;
+                }
+
+                team.get(i).addFriend(friend);
+            }
         }
     }
 }
