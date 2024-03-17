@@ -14,6 +14,7 @@ abstract public class Character implements Step {
     public int level = 1;
     public double money;
     public int initiative;
+    public boolean isBuf = false;
     public ArrayList<Character> enemies = new ArrayList<>();
     public ArrayList<Character> friends = new ArrayList<>();
     
@@ -45,8 +46,14 @@ abstract public class Character implements Step {
             return;
         }
 
-        System.out.println(name + " атакует " + enemy.name + " на " + damage + " урона");
-        enemy.hp -= damage;
+        int additionalDamage = 0;
+        if (isBuf) {
+            additionalDamage += 1;
+        }
+
+        System.out.println(name + " атакует " + enemy.name + " на " + (damage + additionalDamage) + " урона");
+        enemy.hp -= damage + additionalDamage;
+        isBuf = false;
     }
 
     public void step()
@@ -102,6 +109,32 @@ abstract public class Character implements Step {
                }
           }
           return closestEnemy;
+   }
+
+   public Character getClosestFried()
+   {
+        Character closestFried = friends.get(0);
+        for (Character friend: friends) {
+        if (friend != this && !friend.isDead() && friend.getType() != this.getType()) {
+            closestFried = friend;
+            break;
+        }
+        }
+
+        for (int i = 0; i < friends.size(); i++) {
+            if (friends.get(i) == this || friends.get(i).isDead() || this.getType() == friends.get(i).getType()) {
+                continue;
+            }
+
+            Coordinates friendCoordinates = friends.get(i).coordinates;
+            double currentDistance = coordinates.getDistance(friendCoordinates);
+            double closestDistance = coordinates.getDistance(closestFried.coordinates);
+
+            if (closestDistance > currentDistance) {
+                closestFried = friends.get(i);
+            }
+        }
+        return closestFried;
    }
 
    public Character getClosestFriedByType(String type)

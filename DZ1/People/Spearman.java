@@ -21,7 +21,6 @@ public class Spearman extends Character {
             return;
         }
 
-
         if (GoTo.goToClosestEnemy(this) <= 1) {
             attack(getClosestEnemy());
         }

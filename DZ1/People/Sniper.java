@@ -31,15 +31,13 @@ public class Sniper extends Character {
             return;
         }
 
-        arrows -= 1;
-        enemy.hp -= damage;
-        System.out.println("Снайпер " + name + " атаковал " + enemy.name + " на " + damage + " урон");
+        super.attack(enemy);
     }
 
     @Override
     public void step()
     {
-        if (hp > 0) {
+        if (!isDead()) {
             if (arrows > 0) {
                 Character enemy = getClosestEnemy();
                 attack(enemy);
@@ -47,7 +45,7 @@ public class Sniper extends Character {
                 System.out.println("Стрелы отсутствуют");
             }
         } else {
-            System.out.println("Мёртв");
+            System.out.println(this.name + " Мёртв");
         }
     }
 }
